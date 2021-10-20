@@ -23,4 +23,6 @@ export class LoadMore {
     this.ref.classList.remove('is-hidden');
     this.ref.textContent = 'Load more';
   };
+
+
 }

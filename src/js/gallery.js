@@ -100,7 +100,6 @@ export class Gallery {
       this.apiServices.query = value;
     }
     const data = await this.apiServices.fetchData();
-
     if (data.hits.length === 0) {
       alert('No Information');
       return;
@@ -113,6 +112,8 @@ export class Gallery {
     if (!this.isBtnMore) {
       console.log(data);
       this.setInfinityScroll();
+    } else {
+      this.loadBtn.scrollIntoEnd()
     }
   };
 

@@ -1,5 +1,5 @@
 {
-  "name": "goit-js-hw-12-countries",
+  "name": "goit-js-hw-13-image-finder",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -19,19 +19,19 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-12-countries/",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-13-image-finder/",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IrinaShushkevych/goit-js-hw-12-countries.git"
+    "url": "git+https://github.com/IrinaShushkevych/goit-js-hw-13-image-finder.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IrinaShushkevych/goit-js-hw-12-countries/issues"
+    "url": "https://github.com/IrinaShushkevych/goit-js-hw-13-image-finder/issues"
   },
-  "homepage": "https://github.com/IrinaShushkevych/goit-js-hw-12-countries#readme"
+  "homepage": "https://github.com/IrinaShushkevych/goit-js-hw-13-image-finder#readme"
 }
