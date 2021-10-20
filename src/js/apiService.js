@@ -50,12 +50,16 @@ export class ServicePixabay {
     //   this.nextPage();
     //   return response.json();
     // });
-    const response = await fetch(
-      `${this.DASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.currentPage}&per_page=${this.perPage}&key=${this.API_KEY}`,
-    );
-    const result = await response.json();
-    this.nextPage();
-    return result;
+    try {
+      const response = await fetch(
+        `${this.DASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.currentPage}&per_page=${this.perPage}&key=${this.API_KEY}`,
+      );
+      const result = await response.json();
+      this.nextPage();
+      return result;
+    } catch (error) {
+      alert(error);
+    }
   };
 
   nextPage = () => {

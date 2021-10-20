@@ -75,7 +75,10 @@ export class Gallery {
       };
       this.observer = new IntersectionObserver(this.isScrolling, option);
     }
-    this.observer.observe(document.querySelector('li:last-child'));
+    const target = document.querySelector('li:last-child');
+    if (target) {
+      this.observer.observe(target);
+    }
   };
 
   isScrolling = (entries, observer) => {
@@ -97,13 +100,18 @@ export class Gallery {
       this.apiServices.query = value;
     }
     const data = await this.apiServices.fetchData();
-    console.log(data);
+
+    if (data.hits.length === 0) {
+      alert('No Information');
+      return;
+    }
     this.listImage.createMarkupItems(data.hits);
     this.loadBtn.removeLoad();
     if (this.apiServices.isLastPage(data.totalHits)) {
       this.loadBtn.hidden();
     }
     if (!this.isBtnMore) {
+      console.log(data);
       this.setInfinityScroll();
     }
   };
