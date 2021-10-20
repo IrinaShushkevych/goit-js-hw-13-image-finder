@@ -1,0 +1,57 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 50px;
+  background-color: rgba(65, 62, 62, 0.6);
+  visibility: visible;
+  opacity: 1;
+  pointer-events: visible;
+
+  &.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.button {
+  position: absolute;
+  color: white;
+  border: none;
+  background-color: transparent;
+  font-size: 30px;
+
+  &_close {
+    top: 10px;
+    right: 20px;
+    padding: 10px;
+  }
+
+  &_arrows {
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 30px;
+    font-size: 60px;
+  }
+
+  &_left {
+    left: 20px;
+  }
+
+  &_right {
+    right: 20px;
+  }
+}

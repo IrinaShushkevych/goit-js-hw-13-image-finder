@@ -1,0 +1,10 @@
+@import './partial/list';
+@import './partial/item';
+@import './partial/form';
+@import './partial/loadMoreBtn';
+@import './partial//modal';
+
+img {
+  display: block;
+  max-width: 100%;
+}

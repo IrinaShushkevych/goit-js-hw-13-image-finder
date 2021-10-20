@@ -1,0 +1,11 @@
+.gallery {
+  list-style: none;
+  padding: 0;
+  margin-left: -30px;
+
+  @media screen and (min-width: 720px) {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
