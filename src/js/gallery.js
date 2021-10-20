@@ -91,8 +91,10 @@ export class Gallery {
   };
 
   removeInfinityScroll = () => {
-    this.observer.unobserve(document.querySelector('.gallery li:last-child'));
-    this.observer = null;
+    if(this.observer){
+      this.observer.unobserve(document.querySelector('.gallery li:last-child'));
+      this.observer = null;
+    }
   };
 
   getDataService = async value => {
@@ -104,7 +106,11 @@ export class Gallery {
       alert('No Information');
       return;
     }
+    const elem = document.querySelector('.gallery li:last-child')
     this.listImage.createMarkupItems(data.hits);
+    if (this.isBtnMore){
+      this.scrollTo(elem)
+    }
     this.loadBtn.removeLoad();
     if (this.apiServices.isLastPage(data.totalHits)) {
       this.loadBtn.hidden();
@@ -112,9 +118,7 @@ export class Gallery {
     if (!this.isBtnMore) {
       console.log(data);
       this.setInfinityScroll();
-    } else {
-      this.loadBtn.scrollIntoEnd()
-    }
+    } 
   };
 
   getData = e => {
@@ -134,4 +138,16 @@ export class Gallery {
       }
     }
   };
+
+
+  scrollTo = (el)=>{
+    console.dir(el)
+    console.dir(el.nextElementSibling)
+    if (el.nextElementSibling){
+      el.nextElementSibling.scrollIntoView({
+        block: 'start',
+          behavior: 'smooth',
+        })
+    }
+  }
 }
