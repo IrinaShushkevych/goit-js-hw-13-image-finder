@@ -6,7 +6,7 @@ import { LoadMore } from './loadMore';
 import { ModalImage } from './modal';
 
 export class Gallery {
-  constructor({ root = 'main' }) {
+  constructor({ root = 'body' }) {
     this.root = root;
     this.apiServices = new ServicePixabay({ root: this.root });
     this.listImage = new ListImage({ root: this.root });
