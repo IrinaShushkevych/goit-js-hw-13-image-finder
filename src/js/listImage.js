@@ -2,7 +2,7 @@ import listMarkup from '../templates/list.hbs';
 import itemMarkup from '../templates/item.hbs';
 
 export class ListImage {
-  constructor({ root = 'body' }) {
+  constructor({ root = 'main' }) {
     this.root = root;
   }
 

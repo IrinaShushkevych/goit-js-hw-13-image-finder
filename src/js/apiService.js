@@ -44,12 +44,6 @@ export class ServicePixabay {
   };
 
   fetchData = async () => {
-    // return fetch(
-    //   `${this.DASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.currentPage}&per_page=${this.perPage}&key=${this.API_KEY}`,
-    // ).then(response => {
-    //   this.nextPage();
-    //   return response.json();
-    // });
     try {
       const response = await fetch(
         `${this.DASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.currentPage}&per_page=${this.perPage}&key=${this.API_KEY}`,

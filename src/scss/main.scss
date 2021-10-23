@@ -1,8 +1,17 @@
+@import './variables';
 @import './partial/list';
 @import './partial/item';
 @import './partial/form';
 @import './partial/loadMoreBtn';
 @import './partial//modal';
+
+body {
+  margin: 0;
+}
+
+main {
+  padding-top: 100px;
+}
 
 img {
   display: block;

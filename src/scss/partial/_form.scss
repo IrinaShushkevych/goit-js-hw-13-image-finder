@@ -1,7 +1,20 @@
 #search-form {
   display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background-color: $bg-form-color;
+  font-size: 20px;
   & input {
     margin-bottom: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    &.count-image {
+      width: 50px;
+      font-size: 25px;
+    }
   }
 
   & label {

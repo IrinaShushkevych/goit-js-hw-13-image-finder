@@ -6,7 +6,7 @@ import { LoadMore } from './loadMore';
 import { ModalImage } from './modal';
 
 export class Gallery {
-  constructor({ root = 'body' }) {
+  constructor({ root = 'main' }) {
     this.root = root;
     this.apiServices = new ServicePixabay({ root: this.root });
     this.listImage = new ListImage({ root: this.root });
@@ -17,11 +17,10 @@ export class Gallery {
     const formEl = document.getElementById('search-form');
     this.query = formEl.elements.query;
     this.countOnPage = formEl.elements.countOnPage;
-    this.pagination = formEl.elements.pagination;
-    this.isBtnMore = formEl.elements.pagination.checked;
+
+    this.isBtnMore = formEl.elements.countOnPage.value ? true : false;
     this.createMarkupLoadMore();
     this.modal = new ModalImage();
-    this.modal.hide();
   };
 
   createMarkupLoadMore = () => {
@@ -34,7 +33,6 @@ export class Gallery {
   setEvent = () => {
     this.query.addEventListener('input', debounce(this.getData, 300));
     this.countOnPage.addEventListener('input', debounce(this.changeCount, 300));
-    this.pagination.addEventListener('change', this.onChangePagination);
     this.listImage.listEl.addEventListener('click', this.modal.listener);
     if (this.isBtnMore) {
       this.setEventLoadmore();
@@ -49,17 +47,6 @@ export class Gallery {
   removeEventLoadmore = () => {
     this.loadBtn.hidden();
     this.btnMore.addEventListener('click', this.btnMoreclick);
-  };
-
-  onChangePagination = e => {
-    this.isBtnMore = e.target.checked;
-    if (this.isBtnMore) {
-      this.setEventLoadmore();
-      this.removeInfinityScroll();
-    } else {
-      this.removeEventLoadmore();
-      this.setInfinityScroll();
-    }
   };
 
   btnMoreclick = e => {
@@ -91,8 +78,9 @@ export class Gallery {
   };
 
   removeInfinityScroll = () => {
-    if(this.observer){
-      this.observer.unobserve(document.querySelector('.gallery li:last-child'));
+    const elem = document.querySelector('.gallery li:last-child');
+    if (this.observer && elem) {
+      this.observer.unobserve(elem);
       this.observer = null;
     }
   };
@@ -101,24 +89,27 @@ export class Gallery {
     if (value) {
       this.apiServices.query = value;
     }
-    const data = await this.apiServices.fetchData();
-    if (data.hits.length === 0) {
-      alert('No Information');
-      return;
+    try {
+      const data = await this.apiServices.fetchData();
+      if (data.hits.length === 0) {
+        alert('No Information');
+        return;
+      }
+      const elem = document.querySelector('.gallery li:last-child');
+      this.listImage.createMarkupItems(data.hits);
+      if (this.isBtnMore && elem) {
+        this.scrollTo(elem);
+      }
+      this.loadBtn.removeLoad();
+      if (this.apiServices.isLastPage(data.totalHits)) {
+        this.loadBtn.hidden();
+      }
+      if (!this.isBtnMore) {
+        this.setInfinityScroll();
+      }
+    } catch (error) {
+      alert(error);
     }
-    const elem = document.querySelector('.gallery li:last-child')
-    this.listImage.createMarkupItems(data.hits);
-    if (this.isBtnMore){
-      this.scrollTo(elem)
-    }
-    this.loadBtn.removeLoad();
-    if (this.apiServices.isLastPage(data.totalHits)) {
-      this.loadBtn.hidden();
-    }
-    if (!this.isBtnMore) {
-      console.log(data);
-      this.setInfinityScroll();
-    } 
   };
 
   getData = e => {
@@ -130,24 +121,29 @@ export class Gallery {
   };
 
   changeCount = e => {
-    if (Number(e.target.value)) {
+    const cnt = Number(e.target.value);
+    if (cnt) {
       this.listImage.clearList();
       this.apiServices.countPageElement = Number(e.target.value);
       if (this.query.value) {
         this.getDataService(this.query.value);
       }
+      this.isBtnMore = true;
+      this.setEventLoadmore();
+      this.removeInfinityScroll();
+    } else {
+      this.isBtnMore = false;
+      this.removeEventLoadmore();
+      this.setInfinityScroll();
     }
   };
 
-
-  scrollTo = (el)=>{
-    console.dir(el)
-    console.dir(el.nextElementSibling)
-    if (el.nextElementSibling){
+  scrollTo = el => {
+    if (el.nextElementSibling) {
       el.nextElementSibling.scrollIntoView({
         block: 'start',
-          behavior: 'smooth',
-        })
+        behavior: 'smooth',
+      });
     }
-  }
+  };
 }

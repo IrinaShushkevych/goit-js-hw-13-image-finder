@@ -8,6 +8,7 @@ export class ModalImage {
   }
 
   listener = e => {
+    if (e.currentTarget === e.target) return;
     let el = e.target;
     while (!el.dataset.large) {
       el = el.parentElement;
@@ -17,11 +18,11 @@ export class ModalImage {
   };
 
   show = () => {
+    this.isEnableArrow();
+    this.setEvent();
     this.image.src = this.element.dataset.large;
     this.backdrop.classList.remove('is-hidden');
     document.body.style.overflow = 'hidden';
-    this.isEnableArrow();
-    this.setEvent();
   };
 
   hide = () => {
